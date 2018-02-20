@@ -47,4 +47,16 @@ describe(Task) do
       expect(task1.due_date()).to(eq("2018-03-30"))
     end
   end
+
+  describe(".order_by_date") do
+    it("organizes data by due date") do
+      task1 = Task.new({:description => "learn SQL", :list_id => 1, :due_date =>"2018-03-30 00:00:00"})
+      task2 = Task.new({:description => "learn SQL", :list_id => 1, :due_date =>"2018-03-10 00:00:00"})
+      task3 = Task.new({:description => "learn SQL", :list_id => 1, :due_date =>"2018-03-20 00:00:00"})
+      task1.save()
+      task2.save()
+      task3.save()
+      expect(Task.all()).to(eq([task2, task3, task1]))
+    end
+  end
 end

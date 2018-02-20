@@ -8,7 +8,7 @@ class Task
   end
 
   def self.all
-    returned_tasks = DB.exec("SELECT * FROM tasks;")
+    returned_tasks = DB.exec("SELECT * FROM tasks ORDER BY due_date;")
     tasks = []
     returned_tasks.each() do |task|
       description = task.fetch("description")
@@ -25,5 +25,9 @@ class Task
 
   def ==(another_task)
     self.description().==(another_task.description()).&(self.list_id().==(another_task.list_id())).&(self.due_date().==(another_task.due_date()))
+  end
+
+  def self.order_by_date
+    DB.exec("SELECT * FROM tasks ORDER BY due_date;")
   end
 end
